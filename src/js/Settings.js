@@ -6,9 +6,15 @@ export default class Settings {
     constructor() {
         document.querySelector('.settings').onclick = () => {
             document.querySelector('.pop-up').classList.remove('display-none')
+            setTimeout(() => {
+                document.querySelector('.pop-up').classList.remove('transperent-settings')
+            }, 50)
         }
         document.querySelector('.pop-up-back').onclick = () => {
-            document.querySelector('.pop-up').classList.add('display-none')
+            document.querySelector('.pop-up').classList.add('transperent-settings')
+            setTimeout(() => {
+                document.querySelector('.pop-up').classList.add('display-none')
+            }, 1050)
         }
 
         this.sTittle = document.querySelector('.settings-title-up')
