@@ -23,7 +23,6 @@ export default class FlickrLoader {
                 } else {
                     this.currentImg = 0
                 }
-                console.log(`this.imgList[${this.currentImg}] = ${this.imgList[this.currentImg]}`)
                 this.setBackGround(this.imgList[this.currentImg])
             }
         }
@@ -42,7 +41,6 @@ export default class FlickrLoader {
                 } else {
                     this.currentImg = this.imgList.length - 1
                 }
-                console.log(`this.imgList[${this.currentImg}] = ${this.imgList[this.currentImg]}`)
                 this.setBackGround(this.imgList[this.currentImg])
             }
         }
@@ -64,9 +62,7 @@ export default class FlickrLoader {
                 this.imgList = data.photos.photo.map(it => it.url_h).filter(it => it)
                 if (this.imgList.length > 0) {
                     this.imgList.sort(() => (Math.random() > .5) ? 1 : -1);
-                    console.log(this.imgList)
                     this.currentImg = Math.trunc(this.imgList.length / 2)
-                    console.log(`this.imgList[${this.currentImg}] = ${this.imgList[this.currentImg]}`)
                     this.setBackGround(this.imgList[this.currentImg])
                 } else {
                     document.querySelector('.tag-tittle').textContent = i18[getLang()].tagNotFound
@@ -88,7 +84,6 @@ export default class FlickrLoader {
     }
 
     setBackGround(url) {
-        console.log("url -> ", url)
         const img = new Image()
         img.src = url
         img.onload = () => {

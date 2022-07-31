@@ -17,7 +17,6 @@ body {
   color: #fff;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
-  background-image: url("../assets/img/bg.jpg");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -60,6 +59,8 @@ body {
   opacity: .8;
   cursor: pointer;
   transition: .3s;
+  display: flex;
+  justify-content: space-between;
 }
 
 .play-item:hover {
@@ -112,6 +113,13 @@ body {
   width: 40px;
   height: 40px;
   background-size: 40px 40px;
+  background-image: url("../assets/svg/play.svg");
+}
+
+.play-mini {
+  width: 16px;
+  height: 16px;
+  background-size: 16px 16px;
   background-image: url("../assets/svg/play.svg");
 }
 

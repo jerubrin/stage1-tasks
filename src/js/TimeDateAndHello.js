@@ -11,7 +11,7 @@ export default class TimeDateAndHello {
         const timeNode = document.querySelector('.time')
         const dateNode = document.querySelector('.date')
         const date = new Date();
-        timeNode.textContent = date.toLocaleTimeString()
+        timeNode.textContent = date.toLocaleTimeString('en-En', {hourCycle: "h23"})
         if(getLang() == 'en') {
             dateNode.textContent = date.toLocaleDateString(
                 'en-En', 

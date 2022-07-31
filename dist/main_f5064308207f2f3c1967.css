@@ -575,7 +575,6 @@ body {
   color: #fff;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
-  background-image: url(1ec547d73dd0ce35a063.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -618,6 +617,8 @@ body {
   opacity: .8;
   cursor: pointer;
   transition: .3s;
+  display: flex;
+  justify-content: space-between;
 }
 
 .play-item:hover {
@@ -670,6 +671,13 @@ body {
   width: 40px;
   height: 40px;
   background-size: 40px 40px;
+  background-image: url(61d46a084bd961ef0b33.svg);
+}
+
+.play-mini {
+  width: 16px;
+  height: 16px;
+  background-size: 16px 16px;
   background-image: url(61d46a084bd961ef0b33.svg);
 }
 
