@@ -1,74 +1,108 @@
 import TimeDateAndHello from './TimeDateAndHello'
+import UnsplashLoader from './UnsplashLoader'
+import FlickrLoader from './FlickrLoader'
+import { getSettingsParams } from './dataSaver'
 
 export default class BackgroundChanger {
 
-    static currentNum = 0
-    static firstIn = true
-    static isChangingNow = false
-    static timeout = null
-
     constructor() {
-        document.querySelector('.slide-next').onclick = BackgroundChanger.getSlideNext
-        document.querySelector('.slide-prev').onclick = BackgroundChanger.getSlidePrev
+        this.currentNum = 0
+        this.firstIn = true
+        this.isChangingNow = false
+        this.timeout = null
+
+        document.querySelector('.slide-next').onclick = () => this.getSlideNext()
+        document.querySelector('.slide-prev').onclick = () => this.getSlidePrev()
+        this.unsplashLoader = new UnsplashLoader()
+        this.flickrLoader = new FlickrLoader()
     }
 
-    static getSlideNext() {
-        if (BackgroundChanger.isChangingNow) return
-        BackgroundChanger.isChangingNow = true
-        if(BackgroundChanger.timeout) clearTimeout(BackgroundChanger.timeout)
-        
-        if (BackgroundChanger.firstIn) {
-            BackgroundChanger.currentNum = Math.trunc( Math.random() * 19 + 1 )
-            BackgroundChanger.firstIn = false
+    getSlideNext() {
+        let imgSrcParam = getSettingsParams().imgSource
+        if (imgSrcParam == 0) {
+            this.gitHubNext()
+        } else if (imgSrcParam == 1) {
+            this.unsplashLoader.nextImg()
         } else {
-            if (BackgroundChanger.currentNum > 19) { 
-                BackgroundChanger.currentNum = 1 
+            this.flickrLoader.nextImg()
+        }
+    }
+
+    getSlidePrev() {
+        console.log('prev click')
+        let imgSrcParam = getSettingsParams().imgSource
+        if (imgSrcParam == 0) {
+            this.gitHubPrev()
+        } else if (imgSrcParam == 1) {
+            this.unsplashLoader.prevImg()
+        } else {
+            this.flickrLoader.prevImg()
+        }
+    }
+
+    gitHubNext() {
+        if (this.isChangingNow) return
+        this.isChangingNow = true
+        if(this.timeout) clearTimeout(this.timeout)
+
+        if (this.firstIn) {
+            this.currentNum = Math.trunc( Math.random() * 19 + 1 )
+            this.firstIn = false
+        } else {
+            if (this.currentNum > 19) { 
+                this.currentNum = 1 
             } else { 
-                BackgroundChanger.currentNum++ 
+                this.currentNum++ 
             }
         }
-        BackgroundChanger.setBg(BackgroundChanger.currentNum)
+        this.setBg(this.currentNum)
     }
 
-    static getSlidePrev() {
-        if (BackgroundChanger.isChangingNow) return
-        BackgroundChanger.isChangingNow = true
-        if(BackgroundChanger.timeout) clearTimeout(BackgroundChanger.timeout)
+    gitHubPrev() {
+        if (this.isChangingNow) return
+        this.isChangingNow = true
+        if(this.timeout) clearTimeout(this.timeout)
 
-        if (BackgroundChanger.firstIn) {
-            BackgroundChanger.currentNum = Math.trunc( Math.random() * 19 + 1 )
-            BackgroundChanger.firstIn = false
+        if (this.firstIn) {
+            this.currentNum = Math.trunc( Math.random() * 19 + 1 )
+            this.firstIn = false
         } else {
-            if (BackgroundChanger.currentNum <= 1) { 
-                BackgroundChanger.currentNum = 20 
+            if (this.currentNum <= 1) { 
+                this.currentNum = 20 
             }
             else { 
-                BackgroundChanger.currentNum-- 
+                this.currentNum-- 
             }
         }
-        BackgroundChanger.setBg(BackgroundChanger.currentNum)
+        this.setBg(this.currentNum)
     }
 
-    static setBg(num) {  
-        let picNum = BackgroundChanger.getFileName( num )
-        const img = new Image()
-        img.src = "https://raw.githubusercontent.com/jerubrin/stage1-tasks/assets/images/"+
-                  TimeDateAndHello.getTimeOfDay() +
-                  "/" +
-                  picNum +
-                  ".jpg"
-        img.onload = () => {
-            document.body.style.backgroundImage = "url(" + img.src + ")"
-            setTimeout(() => {
-                BackgroundChanger.isChangingNow = false
-            }, 1050 )
-        }
-        BackgroundChanger.timeout = setTimeout(() => {
-            BackgroundChanger.isChangingNow = false
+    setBg(num) {  
+        let picNum = this.getFileName( num )
+        this.setBackground(
+            "https://raw.githubusercontent.com/jerubrin/stage1-tasks/assets/images/"+
+            TimeDateAndHello.getTimeOfDay() +
+            "/" +
+            picNum +
+            ".jpg"
+        )
+        this.timeout = setTimeout(() => {
+            this.isChangingNow = false
         }, 5000)
     }
 
-    static getFileName(num) {
+    setBackground(url) {
+        const img = new Image()
+        img.src = url
+        img.onload = () => {
+            document.body.style.backgroundImage = "url(" + img.src + ")"
+            setTimeout(() => {
+                this.isChangingNow = false
+            }, 1050 )
+        }
+    }
+
+    getFileName(num) {
         return num > 9 ? "" + num : "0" + num
     }
 }
