@@ -12,6 +12,9 @@ export default class Settings {
         }
         document.querySelector('.pop-up-back').onclick = () => {
             document.querySelector('.pop-up').classList.add('transperent-settings')
+            this.params.tag = this.sTagSettd.value
+            setSettingsParams(this.params)
+            document.querySelector('.tag-tittle').textContent = ''
             setTimeout(() => {
                 document.querySelector('.pop-up').classList.add('display-none')
             }, 1050)
@@ -120,6 +123,7 @@ export default class Settings {
             if (e.keyCode === 13) {
                 this.params.tag = this.sTagSettd.value
                 setSettingsParams(this.params)
+                document.querySelector('.tag-tittle').textContent = ''
             }
         });
         //visability

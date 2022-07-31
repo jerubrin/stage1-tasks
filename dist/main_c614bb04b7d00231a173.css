@@ -961,7 +961,7 @@ body {
 
 .settings {
   position: absolute;
-  right: 20px;
+  left: 20px;
   bottom: 20px;
   background-image: url(7399a9f33571b42c16c5.svg);
   background-repeat: no-repeat;
@@ -1041,6 +1041,10 @@ body {
   outline: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   background-color: transparent;
+}
+
+.tag-tittle {
+  color: #de5f5f;
 }
 
 .transperent-block {
