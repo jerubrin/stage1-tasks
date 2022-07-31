@@ -15,6 +15,7 @@ export default class BackgroundChanger {
         document.querySelector('.slide-prev').onclick = () => this.getSlidePrev()
         this.unsplashLoader = new UnsplashLoader()
         this.flickrLoader = new FlickrLoader()
+        this.getSlideNext()
     }
 
     getSlideNext() {

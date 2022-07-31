@@ -50,12 +50,19 @@ export default class AudioPlayer {
         for(let file of files) {
             let li = document.createElement('li');
             li.classList.add('play-item')
-            li.textContent = file.name
+            li.innerHTML = "<div class='play-item-click'>" + file.name + "</div><div class='play-mini'></div>"
             let num = files.indexOf(file)
-            li.onclick = () => {
-                this.currentFileNum = num
-                this.resetPosition()
-                this.playAudio(num)
+            li.childNodes[0].onclick = () => {
+                if (this.currentFileNum != num || !this.isPlay){
+                    this.clickPlayInList(num)
+                }     
+            }
+            li.childNodes[1].onclick = () => {
+                if (this.currentFileNum != num || !this.isPlay){
+                    this.clickPlayInList(num)
+                } else {
+                    this.pauseAudio()
+                }           
             }
             this.playList.append(li)
         }
@@ -83,12 +90,21 @@ export default class AudioPlayer {
         }
     }
 
+    clickPlayInList(num) {
+        let wasNum = this.currentFileNum
+        this.currentFileNum = num
+        if (this.currentFileNum != wasNum) this.resetPosition()
+        this.playAudio(num)
+    }
+
     resetPosition() {
         this.audio.src = `assets/sounds/src/assets/sounds/${files[this.currentFileNum].filename}`
         this.setSoundName(files[this.currentFileNum].name)
         this.audio.currentTime = 0
         this.renewTimeline()
-        for(let file of this.playList.childNodes) { file.classList.remove('item-active') }
+        for(let file of this.playList.childNodes) { 
+            file.classList.remove('item-active')
+        }
         this.playList.childNodes[this.currentFileNum].classList.add('item-active')
         if (this.isPlay) { this.playAudio(this.currentFileNum) }
     }
@@ -122,8 +138,12 @@ export default class AudioPlayer {
         this.audio.play()
         this.isPlay = true
         this.playBtn.classList.add('pause');
-        for(let file of this.playList.childNodes) { file.classList.remove('item-active') }
+        for(let file of this.playList.childNodes) { 
+            file.classList.remove('item-active')
+            file.childNodes[1].classList.remove('pause')
+        }
         this.playList.childNodes[n].classList.add('item-active')
+        this.playList.childNodes[n].childNodes[1].classList.add('pause')
         this.currentFileNum = n
         this.renewTimeline()
     }
@@ -131,6 +151,9 @@ export default class AudioPlayer {
         this.audio.pause()
         this.isPlay = false
         this.playBtn.classList.remove('pause');
+        for(let file of this.playList.childNodes) { 
+            file.childNodes[1].classList.remove('pause')
+        }
     }
 
     async renewTimeline() {
