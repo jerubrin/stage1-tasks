@@ -90,6 +90,7 @@ export default class FlickrLoader {
             document.body.style.backgroundImage = "url(" + img.src + ")"
             setTimeout(() => {
                 this.isChangingNow = false
+                document.body.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
             }, 1050 )
         }
     }

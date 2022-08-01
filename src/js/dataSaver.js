@@ -16,7 +16,7 @@ function setLocalStorage() {
     }
 }
 
-function getLocalStorage() {
+export function getLocalStorage() {
     let nameIn = document.querySelector("input.name")
     if(window.localStorage.getItem('userName')) {
         nameIn.value = window.localStorage.getItem('userName')

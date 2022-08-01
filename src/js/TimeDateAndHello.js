@@ -18,10 +18,12 @@ export default class TimeDateAndHello {
                 {weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC'}
             )
         } else {
-            dateNode.textContent = date.toLocaleDateString(
+            
+            let str = date.toLocaleDateString(
                 'ru-Ru', 
                 {weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC'}
             )
+            dateNode.textContent = str[0].toUpperCase() + str.slice(1);
         }
 
         let getTimeOfDayArrowFun = () => TimeDateAndHello.getTimeOfDay()

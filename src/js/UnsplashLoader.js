@@ -84,6 +84,7 @@ export default class UnsplashLoader {
         img.onload = () => {
             document.body.style.backgroundImage = "url(" + img.src + ")"
             setTimeout(() => {
+                document.body.style.backgroundColor = "rgba(0, 0, 0, 0.5)"
                 this.isChangingNow = false
             }, 1050 )
         }
