@@ -1,5 +1,7 @@
 import getLang, { getSettingsParams, setSettingsParams } from './dataSaver'
 import i18next from './i18nextRes';
+import QOfDay from './QOfDay'
+import { getLocalStorage } from './dataSaver'
 
 export default class Settings {
 
@@ -105,7 +107,8 @@ export default class Settings {
                 this.params.lang = 'en'
             }
             setSettingsParams(this.params)
-            window.location.reload()
+            //window.location.reload()
+            this.reloadAllText()
         }
         //save img source
         this.sImgSetted.onclick = () => {
@@ -223,5 +226,12 @@ export default class Settings {
         } else {
             document.querySelector('.player').classList.add('transperent-block') 
         }
+    }
+
+    reloadAllText() {
+        QOfDay.setNewQ()
+        this.setFieldsByLang()
+        getLocalStorage()
+
     }
 }

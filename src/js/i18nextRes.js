@@ -1,5 +1,8 @@
 export default {
     en: {
+        //Loading
+        loading: "Loading...",
+
         //Hello place
         placeholder: "[Enter name]",
         night: "Good night",
@@ -35,6 +38,9 @@ export default {
         isHide: "hide"
     },
     ru: {
+        //Loading
+        loading: "Загрузка...",
+
         //Hello place
         placeholder: "[Введите имя]",
         night: "Доброй ночи,",
